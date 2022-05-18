@@ -462,6 +462,8 @@ class Yelp(Dataset):
             dataset_property_dict = pickle.load(f)
         for k, v in dataset_property_dict.items():
             self[k] = v
+            if k.startswith('num'):
+                print(f"{k}, {v}")
 
         print('Dataset loaded!')
 
