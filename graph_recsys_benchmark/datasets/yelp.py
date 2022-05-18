@@ -605,13 +605,14 @@ class Yelp(Dataset):
 
             # Merging business and checkin
             business = pd.merge(business, checkin, on='business_id', how='left').fillna(0)
-
+            
             # Select only relevant columns of review and tip
-            review = review.iloc[:, [1, 2]]
+            review = review.iloc[:, [1, 2, 3]]
             tip = tip.iloc[:, [0, 1]]
 
             # Concat review and tips
-            reviewtip = pd.concat([review, tip], axis=0)
+            #reviewtip = pd.concat([review, tip], axis=0)
+            reviewtip = review.loc[review.stars >= 4.].iloc[:, [0, 1]]
 
             # remove duplications
             business = business.drop_duplicates()
